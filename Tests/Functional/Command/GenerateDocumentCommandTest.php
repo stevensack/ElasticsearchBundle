@@ -34,9 +34,14 @@ class GenerateDocumentCommandTest extends WebTestCase
      */
     private function getCommand()
     {
-        $command = new DocumentGenerateCommand();
-        $command->setContainer(self::createClient()->getContainer());
+        $container = self::createClient()->getContainer();
 
-        return $command;
+        return new DocumentGenerateCommand(
+            $container->getParameter('kernel.bundles'),
+            $container->get('es.generate'),
+            $container->get('es.metadata_collector'),
+            $container->get('es.annotations.cached_reader'),
+            ['es.manager.default' => $container->get('es.manager.default')]
+        );
     }
 }

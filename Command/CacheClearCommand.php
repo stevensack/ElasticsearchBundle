@@ -22,6 +22,11 @@ class CacheClearCommand extends AbstractManagerAwareCommand
 {
     public static $defaultName = 'ongr:es:cache:clear';
 
+    public function __construct(array $managers = [])
+    {
+        parent::__construct($managers, self::$defaultName);
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -49,5 +54,7 @@ class CacheClearCommand extends AbstractManagerAwareCommand
                 $input->getOption('manager')
             )
         );
+
+        return 0;
     }
 }

@@ -23,7 +23,6 @@ class IndexDropCommand extends AbstractManagerAwareCommand
 {
     public static $defaultName = 'ongr:es:index:drop';
 
-
     /**
      * {@inheritdoc}
      */
@@ -62,5 +61,7 @@ class IndexDropCommand extends AbstractManagerAwareCommand
             $io->text('This action should not be used in the production environment.');
             $io->error('Option --force is mandatory to drop type(s).');
         }
+
+        return 0;
     }
 }

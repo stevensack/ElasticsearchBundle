@@ -25,6 +25,18 @@ class IndexCreateCommand extends AbstractManagerAwareCommand
     public static $defaultName = 'ongr:es:index:create';
 
     /**
+     * @var IndexSuffixFinder
+     */
+    protected $indexSuffixFinder;
+
+    public function __construct(IndexSuffixFinder $indexSuffixFinder, array $managers = [])
+    {
+        parent::__construct($managers, self::$defaultName);
+
+        $this->indexSuffixFinder = $indexSuffixFinder;
+    }
+
+    /**
      * {@inheritdoc}
      */
     protected function configure()
@@ -73,8 +85,7 @@ class IndexCreateCommand extends AbstractManagerAwareCommand
         }
 
         if ($input->getOption('time')) {
-            /** @var IndexSuffixFinder $finder */
-            $finder = $this->getContainer()->get('es.client.index_suffix_finder');
+            $finder = $this->indexSuffixFinder;
             $finder->setNextFreeIndex($manager);
         }
 
@@ -134,5 +145,7 @@ class IndexCreateCommand extends AbstractManagerAwareCommand
             $manager->getClient()->indices()->updateAliases($params);
             $io->text($message);
         }
+
+        return 0;
     }
 }
