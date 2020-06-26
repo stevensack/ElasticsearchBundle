@@ -1,4 +1,5 @@
 sudo: false
+dist: trusty
 language: php
 php:
   - 5.5
@@ -7,14 +8,11 @@ php:
   - 7.1
   - 7.2
   - 7.3
-  - hhvm
 env:
   global:
       - ES_VERSION="2.3.4"
       - SYMFONY="~3.0"
 matrix:
-  allow_failures:
-    - php: hhvm
   include:
     - php: 7.0
       env: SYMFONY="2.7.*"
