@@ -1,7 +1,6 @@
 sudo: false
 dist: trusty
 language: php
-
 matrix:
   include:
     - language: php
