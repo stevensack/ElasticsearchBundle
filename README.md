@@ -1,4 +1,4 @@
-# ElasticsearchDSL
+# ElasticsearchBundle
 
 This is a fork of the [ongr/elasticsearch-bundle](https://github.com/ongr-io/elasticsearchbundle).
 With some basic changes to support wider range of Symfony Versions.
