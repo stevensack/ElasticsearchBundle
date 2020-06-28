@@ -11,6 +11,7 @@
 
 namespace ONGR\ElasticsearchBundle\Service;
 
+use Elasticsearch\Client;
 use Elasticsearch\ClientBuilder;
 use ONGR\ElasticsearchBundle\Event\Events;
 use ONGR\ElasticsearchBundle\Event\PostCreateManagerEvent;
@@ -129,14 +130,11 @@ class ManagerFactory
             ),
         ];
 
-        if (class_exists(Versions::class)) {
-            $elasticSearchVersion = explode('@', Versions::getVersion('elasticsearch/elasticsearch'))[0];
-            if (0 === strpos($elasticSearchVersion, 'v')) {
-                $elasticSearchVersion = substr($elasticSearchVersion, 1);
-            }
-            if (version_compare($elasticSearchVersion, '7.0.0', '>=')) {
-                $indexSettings['include_type_name'] = true;
-            }
+        // set elasticsearch specific settings
+        $elasticSearchVersion = defined(Client::class . '::VERSION') ? Client::VERSION : '5.0';
+
+        if (version_compare($elasticSearchVersion, '7.0.0', '>=')) {
+            $indexSettings['include_type_name'] = true;
         }
 
         $this->eventDispatcher &&
