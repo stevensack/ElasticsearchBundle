@@ -105,6 +105,27 @@ class Converter
                         }
                         break;
                     case ObjectType::NAME:
+                        if (!isset($value)) {
+                            break;
+                        }
+                        if(!isset($aliases[$name]['namespace'])) {
+                            $value = $this->assignArrayToObject(
+                                $value,
+                                new \stdClass(),
+                                $aliases[$name]['aliases'] ?? []
+                            );
+                        } else {
+                            if ($aliases[$name]['multiple']) {
+                                $value = new ObjectIterator($this, $value, $aliases[$name]);
+                            } else {
+                                $value = $this->assignArrayToObject(
+                                    $value,
+                                    new $aliases[$name]['namespace'](),
+                                    $aliases[$name]['aliases']
+                                );
+                            }
+                        }
+                        break;
                     case Nested::NAME:
                         if ($aliases[$name]['multiple']) {
                             $value = new ObjectIterator($this, $value, $aliases[$name]);
