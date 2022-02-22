@@ -19,7 +19,7 @@ With some basic changes to support wider range of Symfony Versions.
 Install library with [composer](https://getcomposer.org):
 
 ```bash
-composer require handcraftedinthealps/elasticsearch-bundle
+composer require stevensack/elasticsearch-bundle
 ```
 
 ### Usage
